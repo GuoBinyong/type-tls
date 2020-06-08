@@ -131,7 +131,7 @@ export function getTypeOf(inst:any):LooseType {
  * @param t
  * @return ExactTypeName
  */
-export function getStringOfType(t:ExactType):ExactTypeName{
+export function getNameOfType(t:ExactType):ExactTypeName{
 
     switch (t){
         case undefined: return  "undefined";
@@ -175,7 +175,7 @@ export function getTypeByName(typeName:string):Function|undefined {
  */
 export function getTypeNameOf(inst:any):LooseTypeName {
     let t = getTypeOf(inst);
-    return getStringOfType(t);
+    return getNameOfType(t);
 }
 
 
@@ -206,7 +206,7 @@ export function getExactTypeOf(inst:any):ExactType  {
  */
 export function getExactTypeNameOf(inst:any):ExactTypeName {
     var t = getExactTypeOf(inst);
-    return getStringOfType(t);
+    return getNameOfType(t);
 }
 
 
