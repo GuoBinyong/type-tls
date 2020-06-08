@@ -38,7 +38,7 @@ export type LooseType = undefined | null | Function | "object";
 /**
  * 宽松类型的字符串表示
  */
-export type LooseTypeString = "undefined" | "null" | "Function" | "object" | string;
+export type LooseTypeName = "undefined" | "null" | "Function" | "object" | string;
 
 
 
@@ -91,7 +91,7 @@ export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "fun
  * 没有原型的对象(如：通过 Object.create(null) 创建的对象) : "object"
  * 其它任何类型的实例  : 返回该实例的构造函数的名字
  */
-export type ExactTypeString = LooseTypeString | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
+export type ExactTypeName = LooseTypeName | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
 
 
 
@@ -129,9 +129,9 @@ export function getTypeOf(inst:any):LooseType {
 /**
  * 获取 类型的字符串表示
  * @param t
- * @return ExactTypeString
+ * @return ExactTypeName
  */
-export function getStringOfType(t:ExactType):ExactTypeString{
+export function getStringOfType(t:ExactType):ExactTypeName{
 
     switch (t){
         case undefined: return  "undefined";
@@ -173,7 +173,7 @@ export function getTypeByName(typeName:string):Function|undefined {
  * 其它任何类型的实例  : 返回该实例的构造函数  或 包装对象的构造函数 的函数名字
  *
  */
-export function getTypeStringOf(inst:any):LooseTypeString {
+export function getTypeNameOf(inst:any):LooseTypeName {
     let t = getTypeOf(inst);
     return getStringOfType(t);
 }
@@ -202,9 +202,9 @@ export function getExactTypeOf(inst:any):ExactType  {
 /**
  * 获取 inst 的精确类型的字符串表示
  * @param inst : any
- * @returns ExactTypeString    inst 的类型字符串
+ * @returns ExactTypeName    inst 的类型字符串
  */
-export function getExactTypeStringOf(inst:any):ExactTypeString {
+export function getExactTypeNameOf(inst:any):ExactTypeName {
     var t = getExactTypeOf(inst);
     return getStringOfType(t);
 }
