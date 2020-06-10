@@ -220,3 +220,48 @@ export function isBaseType(data:any):boolean {
     var typeStr = typeof data;
     return data == null || (typeStr !== "object" && typeStr !== "function");
 }
+
+
+
+
+
+
+
+
+/**
+ * isArrayLike(target)
+ * 判断 target 是否为 类数组对象
+ * @param target : any    目标
+ * @returns boolean
+ */
+export function isArrayLike(target: any): boolean {
+    let length = target && target.length;
+    return Number.isInteger(target.length) && length >= 0;
+}
+
+
+
+
+
+
+
+/**
+ * 判断 目标 是否是可迭代的对象，即 实现了 可迭代协议
+ * @param target : any
+ * @return {boolean}
+ */
+export function isIterable(target:any):boolean{
+    return target && (typeof target[Symbol.iterator] === "function")
+}
+
+
+/**
+ * 判断 目标 是否是迭代器，即 实现了 迭代器协议
+ * @param target : any
+ * @return {boolean}
+ */
+export function isIterator(target:any):boolean{
+    return target && (typeof target.next === "function")
+}
+
+
