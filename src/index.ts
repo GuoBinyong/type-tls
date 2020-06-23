@@ -265,3 +265,7 @@ export function isIterator(target:any):boolean{
 }
 
 
+/**
+ * 可选的布尔类型
+ */
+export type OptionalBoolean = boolean | null | undefined;
