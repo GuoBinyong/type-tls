@@ -265,7 +265,41 @@ export function isIterator(target:any):boolean{
 }
 
 
+
+
+//类型工具：---------------------------
+
+
 /**
  * 可选的布尔类型
  */
 export type OptionalBoolean = boolean | null | undefined;
+
+
+
+
+
+//类型替换工具：开始
+
+/**
+ * 可将源类型 SourType 中的 类型 MatchType 替换为 新的类型 NewType
+ */
+export type Replace<SourType, MatchType, NewType> = SourType extends MatchType ? NewType : SourType;
+
+/**
+ * 可将源类型 SourType 中的 undefined 替换为 新的类型 NewType
+ */
+export type ReplaceUndefined<SourType, NewType> = Replace<SourType, undefined, NewType>;
+
+/**
+ * 可将源类型 SourType 中的 null 替换为 新的类型 NewType
+ */
+export type ReplaceNull<SourType, NewType> = Replace<SourType, null, NewType>;
+
+/**
+ * 可将源类型 SourType 中的代表空的类型 void | undefined | null 替换为 新的类型 NewType
+ */
+export type ReplaceVoid<SourType, NewType> = Replace<SourType, void | undefined | null, NewType>;
+
+
+//类型替换工具：结束
