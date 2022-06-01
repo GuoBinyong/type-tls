@@ -1,6 +1,6 @@
 {
   "name": "type-tls",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "type-tls 封装了与类型相关的工具，比如:获取数据的类型 或 类型名字、判断数据的类型 等",
   "main": "dist/type-tls.umd.js",
   "module": "dist/type-tls.es.js",
@@ -38,8 +38,8 @@
     "build": "vite build && tsc  --emitDeclarationOnly",
     "stage": "vite build --mode stage && tsc  --emitDeclarationOnly",
     "preview": "vite preview",
-    "api":"api-extractor run -c api-extractor.jsonc -l -v",
-    "doc":"npm run api ; api-documenter markdown -i ./temp -o doc"
+    "api": "api-extractor run -c api-extractor.jsonc -l -v",
+    "doc": "npm run api ; api-documenter markdown -i ./temp -o doc"
   },
   "devDependencies": {
     "@microsoft/api-documenter": "^7.17.15",
