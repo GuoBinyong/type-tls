@@ -1,11 +1,25 @@
 /**
+ * 处理类型相关的工具
+ * @remarks
+ * type-tls 封装了与类型相关的工具，比如获取数据的类型 或 类型名字、判断数据的类型 等
+ * 
+ * @packageDocumentation
+ */
+
+
+
+
+
+/**
  * 判断目标是否是对象类型
- * @param target : any   目标对象
- *
+ * 
+ * @remarks
  * 仅通过 target instanceof Object 判断是不行的，因为 对于 Object.create(null) 创建的对象 通过 ` Object.create(null) instanceof Object ` 来判断 返回的是 false
  * 即：通过 Object.create(null) 创建的对象是不被 instanceof  认为是继续于 Object 的
  *
  * typeof null 也返回 "object"
+ * 
+ * @param target : any   目标对象
  */
 export function isObject(target:any):boolean {
     // return target instanceof Object || typeof target === "object"
@@ -47,13 +61,15 @@ export type LooseTypeName = "undefined" | "null" | "Function" | "object" | strin
 
 /**
  * 精确类型
- *
+ * 
+ * @remarks
  * 在精准类型中认为 JavaScript 的原始类型（非对象类型） 与 其对应的 包装类型（类类型）是不同的类型，即：
  * number 和  Number、string 和 String、boolean 和 Boolean 等 是不同的类型；
  * 对于原始类型，返回的结果 会与 typeof 返回的结果一样；
  * 但，对于 undefined 和 null 会返回其自身值（即 undefined 和 null）作为类型值
  *
  * 各种类型的值 与 该方法的返回值 的映射如下：
+ * ```
  * undefined ：undefined
  * null : null
  * string : "string"
@@ -62,8 +78,9 @@ export type LooseTypeName = "undefined" | "null" | "Function" | "object" | strin
  * boolean : "boolean"
  * symbol : "symbol"
  * function : Function
- * 没有原型的对象(如：通过 Object.create(null) 创建的对象) : "object"
+ * 没有原型的对象(如：通过 `Object.create(null)` 创建的对象) : "object"
  * 其它任何类型的实例  : 返回该实例的构造函数
+ * ```
  */
 export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
 
@@ -73,13 +90,15 @@ export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "fun
 
 /**
  * 精确类型的字符串表示
- *
+ * 
+ * @remarks
  * 在精准类型中认为 JavaScript 的原始类型（非对象类型） 与 其对应的 包装类型（类类型）是不同的类型，即：
  * number 和  Number、string 和 String、boolean 和 Boolean 等 是不同的类型；
  * 对于原始类型，返回的结果 会与 typeof 返回的结果一样；
  * 但，对于 null 会返回 "null"
  *
  * 各种类型的值 与 该方法的返回值 的映射如下：
+ * ```
  * undefined ："undefined"
  * null : "null"
  * function : "Function"
@@ -90,6 +109,7 @@ export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "fun
  * symbol : "symbol"
  * 没有原型的对象(如：通过 Object.create(null) 创建的对象) : "object"
  * 其它任何类型的实例  : 返回该实例的构造函数的名字
+ * ```
  */
 export type ExactTypeName = LooseTypeName | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
 
@@ -100,19 +120,21 @@ export type ExactTypeName = LooseTypeName | Exclude<TypeOfReturnType, "undefined
 
 /**
  * 获取 inst 的宽松类型
- * @param inst : any
- * @returns LooseType    inst 的类型
- *
- *
- *
+ * 
+ * @remarks
  * 注意：
  * 本方法返回的结果如下：
+ * ```
  * undefined ：undefined
  * null ： null
  * function : Function
  * 没有原型的对象(如：通过 Object.create(null) 创建的对象) : "object"
  * 其它任何类型的实例  : 返回该实例的构造函数  或 包装对象的构造函数
- *
+ * ```
+ * 
+ * 
+ * @param inst
+ * @returns inst 的类型
  */
 export function getTypeOf(inst:any):LooseType {
     var typeInfo = inst;
@@ -128,8 +150,9 @@ export function getTypeOf(inst:any):LooseType {
 
 /**
  * 获取 类型的字符串表示
- * @param t
- * @return ExactTypeName
+ * 
+ * @param t - 一个 ExactType 类型的值
+ * @return t 的字符串表示的类型
  */
 export function getNameOfType(t:ExactType):ExactTypeName{
 
@@ -149,8 +172,8 @@ export function getNameOfType(t:ExactType):ExactTypeName{
 
 
 /**
- * 根据类型的名字获取类型
- * @param typeName
+ * 根据类型的名字获取其对应的类
+ * @param typeName - 类型的名字
  */
 export function getTypeByName(typeName:string):Function|undefined {
     return (<any>globalThis)[typeName]
@@ -160,18 +183,17 @@ export function getTypeByName(typeName:string):Function|undefined {
 
 /**
  * 获取 inst 的类型字符串
- * @param inst : any
- * @returns string    inst 的类型字符串
- *
- *
- *
+ * 
+ * @remarks
  * 注意：
  * 本方法返回的结果如下：
  * undefined ："undefined"
  * null ： "null"
  * 没有原型的对象(如：通过 Object.create(null) 创建的对象) : "object"
  * 其它任何类型的实例  : 返回该实例的构造函数  或 包装对象的构造函数 的函数名字
- *
+ * 
+ * @param inst 
+ * @returns  inst 的类型字符串
  */
 export function getTypeNameOf(inst:any):LooseTypeName {
     let t = getTypeOf(inst);
@@ -186,8 +208,8 @@ export function getTypeNameOf(inst:any):LooseTypeName {
 
 /**
  * 获取 inst 的精确类型
- * @param inst : any
- * @returns ExactType    inst 的类型
+ * @param inst
+ * @returns inst 的类型
  */
 export function getExactTypeOf(inst:any):ExactType  {
     if (inst == null || isObject(inst)){
@@ -201,8 +223,8 @@ export function getExactTypeOf(inst:any):ExactType  {
 
 /**
  * 获取 inst 的精确类型的字符串表示
- * @param inst : any
- * @returns ExactTypeName    inst 的类型字符串
+ * @param inst
+ * @returns  inst 的类型字符串
  */
 export function getExactTypeNameOf(inst:any):ExactTypeName {
     var t = getExactTypeOf(inst);
@@ -212,9 +234,9 @@ export function getExactTypeNameOf(inst:any):ExactTypeName {
 
 /**
  * 判断 data 是否是 基本类型
- * @param data
- *
+ * @remarks
  * 基本类型 是指 那些不是 对象类型的类型，即，除了 object 和 function  类型以外，其它的都是基本类型，null 也算怎是 基本类型
+ * @param data - 任意类型的值
  */
 export function isBaseType(data:any):boolean {
     var typeStr = typeof data;
@@ -229,10 +251,9 @@ export function isBaseType(data:any):boolean {
 
 
 /**
- * isArrayLike(target)
  * 判断 target 是否为 类数组对象
- * @param target : any    目标
- * @returns boolean
+ * @param target  -  目标
+ * @returns
  */
 export function isArrayLike(target: any): boolean {
     let length = target && target.length;
@@ -247,8 +268,7 @@ export function isArrayLike(target: any): boolean {
 
 /**
  * 判断 目标 是否是可迭代的对象，即 实现了 可迭代协议
- * @param target : any
- * @return {boolean}
+ * @param target - 目标
  */
 export function isIterable(target:any):boolean{
     return target && (typeof target[Symbol.iterator] === "function")
@@ -257,8 +277,7 @@ export function isIterable(target:any):boolean{
 
 /**
  * 判断 目标 是否是迭代器，即 实现了 迭代器协议
- * @param target : any
- * @return {boolean}
+ * @param target - 目标
  */
 export function isIterator(target:any):boolean{
     return target && (typeof target.next === "function")
@@ -269,11 +288,17 @@ export function isIterator(target:any):boolean{
 
 //类型工具：---------------------------
 
+/**
+ * 将某个类型变为可选的类型
+ */
+export type Optional<T> = T | null | undefined; 
 
 /**
  * 可选的布尔类型
  */
-export type OptionalBoolean = boolean | null | undefined;
+export type OptionalBoolean = Optional<boolean>;
+
+
 
 
 
