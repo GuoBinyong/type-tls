@@ -2,7 +2,7 @@
   "name": "type-tls",
   "version": "2.2.0",
   "description": "type-tls 封装了与类型相关的工具，比如获取数据的类型 或 类型名字、判断数据的类型 等",
-  "main": "dist/type-tls.cjs.js",
+  "main": "dist/type-tls.umd.js",
   "module": "dist/type-tls.es.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
@@ -11,6 +11,10 @@
     "type": "git",
     "url": "https://github.com/GuoBinyong/type-tls"
   },
+  "bugs": {
+    "url": "https://github.com/GuoBinyong/type-tls/issues",
+    "email": "guobinyong@qq.com"
+  },
   "keywords": [
     "type",
     "typeof",
@@ -18,31 +22,30 @@
     "instanceof",
     "类型"
   ],
-  "author": "郭斌勇",
+  "author": {
+    "name": "郭斌勇",
+    "email": "guobinyong@qq.com"
+  },
   "license": "MIT",
   "files": [
     "dist/[^.]*",
-    "types/[^.]*"
+    "types/[^.]*",
+    "docs/[^.]*",
+    "doc/[^.]*"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w",
-    "test": "node test/test.ts",
-    "pretest": "npm run build"
+    "dev": "vite",
+    "build": "vite build && tsc  --emitDeclarationOnly",
+    "stage": "vite build --mode stage && tsc  --emitDeclarationOnly",
+    "preview": "vite preview",
+    "api":"api-extractor run -c api-extractor.jsonc -l -v",
+    "doc":"npm run api ; api-documenter markdown -i ./temp -o doc"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^11.1.0",
-    "@rollup/plugin-node-resolve": "^7.1.3",
-    "@rollup/plugin-typescript": "^4.1.2",
-    "@typescript-eslint/eslint-plugin": "^3.0.0",
-    "@typescript-eslint/parser": "^3.0.0",
-    "eslint": "^7.0.0",
-    "package-tls": "^1.0.2",
-    "path": "^0.12.7",
-    "rollup": "^2.7.2",
-    "rollup-plugin-terser": "^6.1.0",
-    "ts-node": "^8.9.1",
-    "tslib": "^2.0.0",
-    "typescript": "^3.8.3"
+    "@microsoft/api-documenter": "^7.17.15",
+    "@microsoft/api-extractor": "^7.24.1",
+    "package-tls": "^1.2.2",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9"
   }
 }
