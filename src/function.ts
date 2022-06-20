@@ -135,3 +135,11 @@ export function isAnonymousFunction(fun: Function): boolean {
     }
     return true;
 }
+
+
+
+
+/**
+ * 表示任意的函数类型
+ */
+ export type AnyFunction = (...args:any)=>any;
