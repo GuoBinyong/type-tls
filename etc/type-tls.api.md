@@ -5,10 +5,43 @@
 ```ts
 
 // @public
+export type AnyFunction = (...args: any) => any;
+
+// @public
+export interface ClassType<Arg extends any[] = any[], Instance = any> {
+    // (undocumented)
+    new (...args: Arg): Instance;
+}
+
+// @public
+export function createDefineMixin<T>(): <M>(target: T, mixin: M & ThisType<T & M>) => M & ThisType<T & M>;
+
+// @public
+export function createExtendTarget<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E>) => ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
+
+// @public
+export function createMixinTarget<T>(target: T): <M>(m: M & ThisType<T & M>) => M & ThisType<T & M> & T;
+
+// @public
+export function createTargetExtend<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E>) => E & ThisType<C & E>;
+
+// @public
+export function createTargetMixin<T>(target: T): <M>(m: M & ThisType<T & M>) => M & ThisType<T & M>;
+
+// @public
+export function defineExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<C & E>;
+
+// @public
+export function defineMixin<T, M>(target: T, mixin: M & ThisType<T & M>): M & ThisType<T & M>;
+
+// @public
 export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
 
 // @public
 export type ExactTypeName = LooseTypeName | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
+
+// @public
+export function extendTarget<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
 
 // @public
 export function getExactTypeNameOf(inst: any): ExactTypeName;
@@ -29,10 +62,28 @@ export function getTypeNameOf(inst: any): LooseTypeName;
 export function getTypeOf(inst: any): LooseType;
 
 // @public
+export function isAnonymousFunction(fun: Function): boolean;
+
+// @public
 export function isArrayLike(target: any): boolean;
 
 // @public
+export function isArrowFunction(fun: Function): boolean;
+
+// @public
+export function isAsyncFunction(fun: Function): boolean;
+
+// @public
+export function isAsyncGeneratorFunction(fun: Function): boolean;
+
+// @public
 export function isBaseType(data: any): boolean;
+
+// @public
+export function isGeneratorFunction(fun: Function): boolean;
+
+// @public
+export function isIdentifier(code: string): boolean;
 
 // @public
 export function isIterable(target: any): boolean;
@@ -48,6 +99,32 @@ export type LooseType = undefined | null | Function | "object";
 
 // @public
 export type LooseTypeName = "undefined" | "null" | "Function" | "object" | string;
+
+// @public
+export type MethodParams<Obj, Method extends keyof Obj, ParamIndex extends number> = Obj[Method] extends AnyFunction ? Parameters<Obj[Method]>[ParamIndex] : never;
+
+// @public
+export type MethodReturnType<Obj, Method extends keyof Obj> = Obj[Method] extends AnyFunction ? ReturnType<Obj[Method]> : never;
+
+// Warning: (ae-internal-mixed-release-tag) Mixed release tags are not allowed for "mixin" because one of its declarations is marked as @internal
+//
+// @internal
+export function mixin<T, S>(target: T, source: S): T & S;
+
+// @internal
+export function mixin<T, S1, S2>(target: T, source1: S1, source2: S2): T & S1 & S2;
+
+// @internal
+export function mixin<T, S1, S2, S3>(target: T, source1: S1, source2: S2, source3: S3): T & S1 & S2 & S3;
+
+// @internal
+export function mixin<T, S1, S2, S3, S4>(target: T, source1: S1, source2: S2, source3: S3, source4: S3): T & S1 & S2 & S3 & S4;
+
+// @public
+export function mixin(target: any, ...sources: any[]): any;
+
+// @public
+export function mixinTarget<T, M>(target: T, m: M & ThisType<T & M>): M & ThisType<T & M> & T;
 
 // @public
 export type Optional<T> = T | null | undefined;
@@ -68,6 +145,14 @@ export type ReplaceUndefined<SourType, NewType> = Replace<SourType, undefined, N
 export type ReplaceVoid<SourType, NewType> = Replace<SourType, void | undefined | null, NewType>;
 
 // @public
+export function targetExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<InstanceType<C> & E>;
+
+// @public
+export function targetMixin<T, M>(target: T, m: M & ThisType<T & M>): M & ThisType<T & M>;
+
+// @public
 export type TypeOfReturnType = "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+
+// (No @packageDocumentation comment for this package)
 
 ```

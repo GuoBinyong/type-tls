@@ -4,36 +4,57 @@
 
 ## type-tls package
 
-处理类型相关的工具
-
-## Remarks
-
-type-tls 封装了与类型相关的工具，比如获取数据的类型 或 类型名字、判断数据的类型 等
-
 ## Functions
 
 |  Function | Description |
 |  --- | --- |
+|  [createDefineMixin()](./type-tls.createdefinemixin.md) | 创建定义混合的类型便利函数 |
+|  [createExtendTarget(cla)](./type-tls.createextendtarget.md) | 创建用于扩展目标工具函数 |
+|  [createMixinTarget(target)](./type-tls.createmixintarget.md) | 创建用于混合目标工具函数 |
+|  [createTargetExtend(cla)](./type-tls.createtargetextend.md) | 创建用于扩展目标的便捷函数 |
+|  [createTargetMixin(target)](./type-tls.createtargetmixin.md) | 创建用于混合目标的便捷函数 |
+|  [defineExtend(cla, ext)](./type-tls.defineextend.md) | 定义扩展的类型便利函数 |
+|  [defineMixin(target, mixin)](./type-tls.definemixin.md) | 定义混合的类型便利函数 |
+|  [extendTarget(cla, ext)](./type-tls.extendtarget.md) | 扩展目标 |
 |  [getExactTypeNameOf(inst)](./type-tls.getexacttypenameof.md) | 获取 inst 的精确类型的字符串表示 |
 |  [getExactTypeOf(inst)](./type-tls.getexacttypeof.md) | 获取 inst 的精确类型 |
 |  [getNameOfType(t)](./type-tls.getnameoftype.md) | 获取 类型的字符串表示 |
 |  [getTypeByName(typeName)](./type-tls.gettypebyname.md) | 根据类型的名字获取其对应的类 |
 |  [getTypeNameOf(inst)](./type-tls.gettypenameof.md) | 获取 inst 的类型字符串 |
 |  [getTypeOf(inst)](./type-tls.gettypeof.md) | 获取 inst 的宽松类型 |
+|  [isAnonymousFunction(fun)](./type-tls.isanonymousfunction.md) | 判断是否是匿名函数 |
 |  [isArrayLike(target)](./type-tls.isarraylike.md) | 判断 target 是否为 类数组对象 |
+|  [isArrowFunction(fun)](./type-tls.isarrowfunction.md) | 判断函数是否是箭头函数 |
+|  [isAsyncFunction(fun)](./type-tls.isasyncfunction.md) | 判断函数是否是 async 异步函数 |
+|  [isAsyncGeneratorFunction(fun)](./type-tls.isasyncgeneratorfunction.md) | 判断函数是否是异步生成器函数 |
 |  [isBaseType(data)](./type-tls.isbasetype.md) | 判断 data 是否是 基本类型 |
+|  [isGeneratorFunction(fun)](./type-tls.isgeneratorfunction.md) | 判断函数是否是生成器函数 |
+|  [isIdentifier(code)](./type-tls.isidentifier.md) | 判断 code 是否是有校的 js 标识符 |
 |  [isIterable(target)](./type-tls.isiterable.md) | 判断 目标 是否是可迭代的对象，即 实现了 可迭代协议 |
 |  [isIterator(target)](./type-tls.isiterator.md) | 判断 目标 是否是迭代器，即 实现了 迭代器协议 |
 |  [isObject(target)](./type-tls.isobject.md) | 判断目标是否是对象类型 |
+|  [mixin(target, sources)](./type-tls.mixin_4.md) | 混合 |
+|  [mixinTarget(target, m)](./type-tls.mixintarget.md) | 混合目标 |
+|  [targetExtend(cla, ext)](./type-tls.targetextend.md) | 扩展目标 |
+|  [targetMixin(target, m)](./type-tls.targetmixin.md) | 混合目标 |
+
+## Interfaces
+
+|  Interface | Description |
+|  --- | --- |
+|  [ClassType](./type-tls.classtype.md) | 类的类型、构造函数的类型 |
 
 ## Type Aliases
 
 |  Type Alias | Description |
 |  --- | --- |
+|  [AnyFunction](./type-tls.anyfunction.md) | 表示任意的函数类型 |
 |  [ExactType](./type-tls.exacttype.md) | 精确类型 |
 |  [ExactTypeName](./type-tls.exacttypename.md) | 精确类型的字符串表示 |
 |  [LooseType](./type-tls.loosetype.md) | 宽松的类型 |
 |  [LooseTypeName](./type-tls.loosetypename.md) | 宽松类型的字符串表示 |
+|  [MethodParams](./type-tls.methodparams.md) | 获取对象的方法的某个参数的类型 |
+|  [MethodReturnType](./type-tls.methodreturntype.md) | 获取对象的方法的返回的类型 |
 |  [Optional](./type-tls.optional.md) | 将某个类型变为可选的类型 |
 |  [OptionalBoolean](./type-tls.optionalboolean.md) | 可选的布尔类型 |
 |  [Replace](./type-tls.replace.md) | 可将源类型 SourType 中的 类型 MatchType 替换为 新的类型 NewType |
