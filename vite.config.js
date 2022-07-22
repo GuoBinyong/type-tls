@@ -12,7 +12,24 @@ const entry = 'src/index.ts';   // 输入（入口）文件
 //所需构建的模块格式
 const formats_ExcludeDep = ['es', 'umd'];  //要排除依赖包的模块格式
 const formats_IncludeDep = ['iife'];  //要包含依赖包的模块格式
-const singleDts = true;   // 是否要将声明汇总成一个单独的文件
+const singleDts = false;   // 是否要将声明汇总成一个单独的文件
+/**
+ * 将声明汇总成一个文件的选项
+ * @type {import("build-tls").DtsBundle|boolean}
+ */
+ const dtsBundle = {
+    entry:entry,
+    umdModuleName:pkgName,
+    // inlineDeclareGlobal:true,
+    // inlineDeclareExternals:true,
+};
+/**
+ * 是否要拷贝项目中已存在的类型声明文件.d.ts 到输出目录中
+ * 可通过指定为 false 来禁止拷贝
+ */
+ const copyDTS = {
+    exclude:["vite-env.d.ts"], //需要排除的文件或目录
+};
 
 
 
@@ -22,15 +39,6 @@ const srcDir = dirname(entry);   //源代码根目录
 const outDir = pkg.main ? dirname(pkg.main || pkg.module) : "dist";    //输出目录
 const dtsFile =  pkg.types || pkg.typings;  //类型声明文件的路径
 const dtsDir = dtsFile ?  dirname(dtsFile) : outDir;  //类型声明文件的输出目录
-
-/**
- * 是否要拷贝项目中已存在的类型声明文件.d.ts 到输出目录中
- * 可通过指定为 false 来禁止拷贝
- */
- const copyDTS = !singleDts;
- // const copyDTS = {
- //     exclude:["vite-env.d.ts"], //需要排除的文件或目录
- // };
 
 const excludedDepTyps_Exclude = ["dependencies","optionalDependencies","peerDependencies"];  // 排除依赖包模块格式所需要排除的依赖的类型
 const excludedDepTypes_Include = ["peerDependencies"];  // 包含依赖包模块格式所需要排除的依赖的类型
@@ -80,6 +88,7 @@ const config = {
  export default defineConfig(async (options)=>{
     const {mode,command} = options;
     if (command !== "build") return config;
+    const isBunch = mode === "bunch";
     
     config.build.emptyOutDir = false;  // 防止把先生成的文件（比如：类型声明文件）给清除了
     await removePath(outDir);  // 手动清除输出目录
@@ -90,19 +99,18 @@ const config = {
         await buildFiles(workerFileBuildOptions);
     }
 
-
-    const excludedDepTypes =  mode === "stage" ? excludedDepTypes_Include : excludedDepTyps_Exclude;
+    const excludedDepTypes =  isBunch ? excludedDepTypes_Include : excludedDepTyps_Exclude;
     const allDepTyps = ["dependencies","optionalDependencies","peerDependencies"];
     const inlinedDepTypes = allDepTyps.filter(dType=>!excludedDepTypes.includes(dType));
     generate_d_ts(srcDir,dtsDir,{
         onExit:false,
         copyDTS:copyDTS,
-        outFile: singleDts ? dtsFile : null,
+        outFile: singleDts||isBunch ? dtsFile : null,
         dtsBundle:{
-            entry:entry,
-            externalInlines:[...getDependencieNames(pkg,inlinedDepTypes)]
+            externalInlines:[...getDependencieNames(pkg,inlinedDepTypes)],
+            ...dtsBundle,
         }
-    });
+    }).catch((err)=>{console.error(`${pkg.name}：generate_d_ts 生成.d.ts文件时出错!`)});
     
 
 
@@ -111,7 +119,7 @@ const config = {
     
 
     switch (mode) {
-        case "stage":{
+        case "bunch":{
             config.build.lib.formats = [...formats_ExcludeDep,...formats_IncludeDep];
             config.build.rollupOptions.external = excludedDep_Include;
             break;
