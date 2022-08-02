@@ -10,11 +10,38 @@ export interface ClassType<Arg extends any[] = any[], Instance = any> {
   new (...args: Arg): Instance;
 }
 
+
+
+
+/**
+ * 用于定义扩展选项中的私有成员
+ */
+export interface PrivateMemberOfExtend<TargetType extends new (...args:any)=>any> {
+  /**
+   * 扩展类中用于定义在创建实例时的初始化的方法
+   * @remarks
+   * 该方法会在创建实例时自动执行，并将构建函数接收到的参数透传给方方法。
+   * 
+   * 注意：
+   * _constructor  会被保存在 目标类中的 _constructors 属性中，它是一个数组。
+   * 
+   * 目标类 需要在自己的构建函数中逐个调用 cla._constructors 中的函数
+   * 
+   * @param args 
+   */
+     _constructor?:(...args: (TargetType extends new (...args: infer A) => any ? A : never)) => void;
+}
+
+
 /**
  * 定义扩展的类型便利函数
  *
  * @remarks
- * 它会更改 ext 中方法的this指向为 cla & ext，不会真的执行扩展操作
+ * 它会更改 ext 中方法的this指向为 cla & ext，不会真的执行扩展操作。
+ * 
+ * 其中 ext._constructor  会被保存在 cla._constructors 属性中，它是一个数组。
+ * 
+ * cla 需要在自己的构建函数中逐个调用 cla._constructors 中的函数
  *
  * @param cla - 扩展的目标，用作 this 的类型
  * @param ext - 描述扩展内容的对象，会自动更改其this的类型
@@ -22,7 +49,7 @@ export interface ClassType<Arg extends any[] = any[], Instance = any> {
  */
 export function defineExtend<C extends ClassType, E>(
   cla: C,
-  ext: E & ThisType<InstanceType<C> & E>
+  ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>
 ): E & ThisType<C & E> {
   return ext;
 }
@@ -40,9 +67,15 @@ export function defineExtend<C extends ClassType, E>(
  */
 export function targetExtend<C extends ClassType, E>(
   cla: C,
-  ext: E & ThisType<InstanceType<C> & E>
+  ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>
 ): E & ThisType<InstanceType<C> & E> {
   mixin(cla.prototype, ext);
+  const _constructor = ext._constructor;
+  if (typeof _constructor === 'function') {
+    const target:any = cla;
+    const _constructors =  target._constructors ?? ( target._constructors = []);
+    _constructors.push(_constructor);
+  }
   return ext;
 }
 
@@ -56,10 +89,11 @@ export function targetExtend<C extends ClassType, E>(
  * @returns 可以用于 扩展目标 的便利函数
  */
 export function createTargetExtend<C extends ClassType>(cla: C) {
-  return function targetExtend<E>(
-    ext: E & ThisType<InstanceType<C> & E>
+  return function classExtend<E>(
+    ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>
   ): E & ThisType<C & E> {
-    mixin(cla.prototype, ext);
+    // @ts-ignore
+    targetExtend(cla,ext)
     return ext;
   };
 }
@@ -77,9 +111,10 @@ export function createTargetExtend<C extends ClassType>(cla: C) {
  */
 export function extendTarget<C extends ClassType, E>(
   cla: C,
-  ext: E & ThisType<InstanceType<C> & E>
+  ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>
 ): ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>> {
-  mixin(cla.prototype, ext);
+    // @ts-ignore
+    targetExtend(cla,ext)
   return cla;
 }
 
@@ -94,9 +129,10 @@ export function extendTarget<C extends ClassType, E>(
  */
 export function createExtendTarget<C extends ClassType>(cla: C) {
   return function extendTarget<E>(
-    ext: E & ThisType<InstanceType<C> & E>
+    ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>
   ): ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>> {
-    mixin(cla.prototype, ext);
+        // @ts-ignore
+        targetExtend(cla,ext)
     return cla;
   };
 }
