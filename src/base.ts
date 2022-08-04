@@ -299,12 +299,6 @@ export type Optional<T> = T | null | undefined;
 export type OptionalBoolean = Optional<boolean>;
 
 
-/**
- * 获取 Promise 解决的类型的值
- * @remarks
- * 对于非 Promise 类型的值，返回原类型本身
- */
- export type ResolveData<P> = P extends Promise<infer D> ? D : P;
 
 
 
