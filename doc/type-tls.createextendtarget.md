@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function createExtendTarget<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E>) => ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
+export declare function createExtendTarget<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>) => ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
 ```
 
 ## Parameters
@@ -20,7 +20,7 @@ export declare function createExtendTarget<C extends ClassType>(cla: C): <E>(ext
 
 <b>Returns:</b>
 
-&lt;E&gt;(ext: E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt;) =&gt; [ClassType](./type-tls.classtype.md)<!-- -->&lt;ConstructorParameters&lt;C&gt;, E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt;&gt;
+&lt;E&gt;(ext: E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt; &amp; [PrivateMemberOfExtend](./type-tls.privatememberofextend.md)<!-- -->&lt;C&gt;) =&gt; [ClassType](./type-tls.classtype.md)<!-- -->&lt;ConstructorParameters&lt;C&gt;, E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt;&gt;
 
 可以用于 扩展目标 的便利函数
 

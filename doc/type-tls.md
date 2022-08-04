@@ -37,12 +37,14 @@
 |  [mixinTarget(target, m)](./type-tls.mixintarget.md) | 混合目标 |
 |  [targetExtend(cla, ext)](./type-tls.targetextend.md) | 扩展目标 |
 |  [targetMixin(target, m)](./type-tls.targetmixin.md) | 混合目标 |
+|  [waitAsyncable(asyncable, callback)](./type-tls.waitasyncable.md) | 等待可异步的结果 |
 
 ## Interfaces
 
 |  Interface | Description |
 |  --- | --- |
 |  [ClassType](./type-tls.classtype.md) | 类的类型、构造函数的类型 |
+|  [PrivateMemberOfExtend](./type-tls.privatememberofextend.md) | 用于定义扩展选项中的私有成员 |
 
 ## Type Aliases
 
@@ -61,5 +63,8 @@
 |  [ReplaceNull](./type-tls.replacenull.md) | 可将源类型 SourType 中的 null 替换为 新的类型 NewType |
 |  [ReplaceUndefined](./type-tls.replaceundefined.md) | 可将源类型 SourType 中的 undefined 替换为 新的类型 NewType |
 |  [ReplaceVoid](./type-tls.replacevoid.md) | 可将源类型 SourType 中的代表空的类型 void \| undefined \| null 替换为 新的类型 NewType |
+|  [ResolveData](./type-tls.resolvedata.md) | 获取 Promise 解决的类型的值 |
 |  [TypeOfReturnType](./type-tls.typeofreturntype.md) | typeof 的返回类型 |
+|  [WaitAsyncableCallback](./type-tls.waitasyncablecallback.md) | waitAsyncable 的回调函数的类型 |
+|  [WaitAsyncableReturn](./type-tls.waitasyncablereturn.md) | waitAsyncable 的返回值的类型 |
 

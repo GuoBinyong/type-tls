@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function targetExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<InstanceType<C> & E>;
+export declare function targetExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>): E & ThisType<InstanceType<C> & E>;
 ```
 
 ## Parameters
@@ -17,7 +17,7 @@ export declare function targetExtend<C extends ClassType, E>(cla: C, ext: E & Th
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  cla | C | 扩展的目标，也用作 this 的类型 |
-|  ext | E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt; | 扩展描述对象，会自动更改其this的类型 |
+|  ext | E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt; &amp; [PrivateMemberOfExtend](./type-tls.privatememberofextend.md)<!-- -->&lt;C&gt; | 扩展描述对象，会自动更改其this的类型 |
 
 <b>Returns:</b>
 

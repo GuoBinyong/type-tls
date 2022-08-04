@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function defineExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<C & E>;
+export declare function defineExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>): E & ThisType<C & E>;
 ```
 
 ## Parameters
@@ -17,7 +17,7 @@ export declare function defineExtend<C extends ClassType, E>(cla: C, ext: E & Th
 |  Parameter | Type | Description |
 |  --- | --- | --- |
 |  cla | C | 扩展的目标，用作 this 的类型 |
-|  ext | E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt; | 描述扩展内容的对象，会自动更改其this的类型 |
+|  ext | E &amp; ThisType&lt;InstanceType&lt;C&gt; &amp; E&gt; &amp; [PrivateMemberOfExtend](./type-tls.privatememberofextend.md)<!-- -->&lt;C&gt; | 描述扩展内容的对象，会自动更改其this的类型 |
 
 <b>Returns:</b>
 
@@ -27,5 +27,9 @@ E &amp; ThisType&lt;C &amp; E&gt;
 
 ## Remarks
 
-它会更改 ext 中方法的this指向为 cla &amp; ext，不会真的执行扩展操作
+它会更改 ext 中方法的this指向为 cla &amp; ext，不会真的执行扩展操作。
+
+其中 ext.\_constructor 会被保存在 cla.\_constructors 属性中，它是一个数组。
+
+cla 需要在自己的构建函数中逐个调用 cla.\_constructors 中的函数
 

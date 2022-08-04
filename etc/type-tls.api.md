@@ -17,19 +17,19 @@ export interface ClassType<Arg extends any[] = any[], Instance = any> {
 export function createDefineMixin<T>(): <M>(target: T, mixin: M & ThisType<T & M>) => M & ThisType<T & M>;
 
 // @public
-export function createExtendTarget<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E>) => ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
+export function createExtendTarget<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>) => ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
 
 // @public
 export function createMixinTarget<T>(target: T): <M>(m: M & ThisType<T & M>) => M & ThisType<T & M> & T;
 
 // @public
-export function createTargetExtend<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E>) => E & ThisType<C & E>;
+export function createTargetExtend<C extends ClassType>(cla: C): <E>(ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>) => E & ThisType<C & E>;
 
 // @public
 export function createTargetMixin<T>(target: T): <M>(m: M & ThisType<T & M>) => M & ThisType<T & M>;
 
 // @public
-export function defineExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<C & E>;
+export function defineExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>): E & ThisType<C & E>;
 
 // @public
 export function defineMixin<T, M>(target: T, mixin: M & ThisType<T & M>): M & ThisType<T & M>;
@@ -41,7 +41,7 @@ export type ExactType = LooseType | Exclude<TypeOfReturnType, "undefined" | "fun
 export type ExactTypeName = LooseTypeName | Exclude<TypeOfReturnType, "undefined" | "function" | "object">;
 
 // @public
-export function extendTarget<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
+export function extendTarget<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>): ClassType<ConstructorParameters<C>, E & ThisType<InstanceType<C> & E>>;
 
 // @public
 export function getExactTypeNameOf(inst: any): ExactTypeName;
@@ -133,6 +133,11 @@ export type Optional<T> = T | null | undefined;
 export type OptionalBoolean = Optional<boolean>;
 
 // @public
+export interface PrivateMemberOfExtend<TargetType extends new (...args: any) => any> {
+    _constructor?: (...args: (TargetType extends new (...args: infer A) => any ? A : never)) => void;
+}
+
+// @public
 export type Replace<SourType, MatchType, NewType> = SourType extends MatchType ? NewType : SourType;
 
 // @public
@@ -145,13 +150,25 @@ export type ReplaceUndefined<SourType, NewType> = Replace<SourType, undefined, N
 export type ReplaceVoid<SourType, NewType> = Replace<SourType, void | undefined | null, NewType>;
 
 // @public
-export function targetExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E>): E & ThisType<InstanceType<C> & E>;
+export type ResolveData<P> = P extends Promise<infer D> ? D : P;
+
+// @public
+export function targetExtend<C extends ClassType, E>(cla: C, ext: E & ThisType<InstanceType<C> & E> & PrivateMemberOfExtend<C>): E & ThisType<InstanceType<C> & E>;
 
 // @public
 export function targetMixin<T, M>(target: T, m: M & ThisType<T & M>): M & ThisType<T & M>;
 
 // @public
 export type TypeOfReturnType = "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
+
+// @public
+export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Return>;
+
+// @public
+export type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result> | null | undefined, rejected: boolean) => Return;
+
+// @public
+export type WaitAsyncableReturn<Result> = Result extends Promise<any> ? Result : Promise<Result> | Result;
 
 // (No @packageDocumentation comment for this package)
 
