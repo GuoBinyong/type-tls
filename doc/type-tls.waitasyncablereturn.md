@@ -9,5 +9,5 @@ waitAsyncable 的返回值的类型
 <b>Signature:</b>
 
 ```typescript
-export declare type WaitAsyncableReturn<Result> = Result extends Promise<any> ? Result : Promise<Result> | Result;
+export declare type WaitAsyncableReturn<Result, Return> = Return extends Promise<any> ? Return : (Result extends Promise<any> ? Promise<Return> : Return);
 ```

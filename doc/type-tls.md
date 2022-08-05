@@ -45,6 +45,7 @@
 |  --- | --- |
 |  [ClassType](./type-tls.classtype.md) | 类的类型、构造函数的类型 |
 |  [PrivateMemberOfExtend](./type-tls.privatememberofextend.md) | 用于定义扩展选项中的私有成员 |
+|  [WaitAsyncableCallback](./type-tls.waitasyncablecallback.md) | waitAsyncable 的回调函数的类型 |
 
 ## Type Aliases
 
@@ -65,6 +66,5 @@
 |  [ReplaceVoid](./type-tls.replacevoid.md) | 可将源类型 SourType 中的代表空的类型 void \| undefined \| null 替换为 新的类型 NewType |
 |  [ResolveData](./type-tls.resolvedata.md) | 获取 Promise 解决的类型的值 |
 |  [TypeOfReturnType](./type-tls.typeofreturntype.md) | typeof 的返回类型 |
-|  [WaitAsyncableCallback](./type-tls.waitasyncablecallback.md) | waitAsyncable 的回调函数的类型 |
 |  [WaitAsyncableReturn](./type-tls.waitasyncablereturn.md) | waitAsyncable 的返回值的类型 |
 

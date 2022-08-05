@@ -9,7 +9,7 @@
 <b>Signature:</b>
 
 ```typescript
-export declare function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Return>;
+export declare function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result, Return>;
 ```
 
 ## Parameters
@@ -21,7 +21,7 @@ export declare function waitAsyncable<Result, Return>(asyncable: Result, callbac
 
 <b>Returns:</b>
 
-[WaitAsyncableReturn](./type-tls.waitasyncablereturn.md)<!-- -->&lt;Return&gt;
+[WaitAsyncableReturn](./type-tls.waitasyncablereturn.md)<!-- -->&lt;Result, Return&gt;
 
 
 ## Remarks

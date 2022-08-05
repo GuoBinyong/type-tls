@@ -162,13 +162,18 @@ export function targetMixin<T, M>(target: T, m: M & ThisType<T & M>): M & ThisTy
 export type TypeOfReturnType = "string" | "number" | "bigint" | "boolean" | "symbol" | "undefined" | "object" | "function";
 
 // @public
-export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Return>;
+export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result, Return>;
 
 // @public
-export type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result> | null | undefined, rejected: boolean) => Return;
+export interface WaitAsyncableCallback<Result, Return> {
+    // (undocumented)
+    (result: ResolveData<Result>, rejected: false): Return;
+    // (undocumented)
+    (result: undefined, rejected: true, reason: any): Return;
+}
 
 // @public
-export type WaitAsyncableReturn<Result> = Result extends Promise<any> ? Result : Promise<Result> | Result;
+export type WaitAsyncableReturn<Result, Return> = Return extends Promise<any> ? Return : (Result extends Promise<any> ? Promise<Return> : Return);
 
 // (No @packageDocumentation comment for this package)
 
