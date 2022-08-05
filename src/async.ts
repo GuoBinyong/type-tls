@@ -12,14 +12,17 @@ export type ResolveData<P> = P extends Promise<infer D> ? D : P;
 /**
  * waitAsyncable 的返回值的类型
  */
-export type WaitAsyncableReturn<Result> = Result extends Promise<any> ? Result : Promise<Result> | Result;
+export type WaitAsyncableReturn<Result,Return> = Return extends Promise<any> ? Return : ( Result extends Promise<any> ? Promise<Return> : Return);
 
 /**
  * waitAsyncable 的回调函数的类型
  * @param result -  同步的结果
  * @param rejected - 异步是否被拒绝
  */
-export type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result> | null | undefined, rejected: boolean) => Return;
+export interface WaitAsyncableCallback<Result, Return> {
+    (result: ResolveData<Result>, rejected: false):Return;
+    (result: undefined, rejected: true,reason:any):Return;
+}
 
 /**
  * 等待可异步的结果
@@ -32,13 +35,13 @@ export type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result>
  * @param callback 
  * @returns 
  */
-export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Return> {
+export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result,Return> {
     if (asyncable instanceof Promise) {
         return asyncable.then((syncRes) => {
             return callback(syncRes, false);
-        }, () => {
-            return callback(undefined, true);
-        }) as WaitAsyncableReturn<Return>;
+        }, (reason) => {
+            return callback(undefined, true,reason);
+        }) as WaitAsyncableReturn<Result,Return>;
     }
-    return callback(asyncable as ResolveData<Result>, false) as WaitAsyncableReturn<Return>;
+    return callback(asyncable as ResolveData<Result>, false) as WaitAsyncableReturn<Result,Return>;
 }
