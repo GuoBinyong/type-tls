@@ -19,10 +19,7 @@ export type WaitAsyncableReturn<Result,Return> = Return extends Promise<any> ? R
  * @param result -  同步的结果
  * @param rejected - 异步是否被拒绝
  */
-export interface WaitAsyncableCallback<Result, Return> {
-    (result: ResolveData<Result>, rejected: false):Return;
-    (result: undefined, rejected: true,reason:any):Return;
-}
+export type WaitAsyncableCallback<Result, Return> = (result: Result|undefined, rejected: boolean,error:any)=>Return;
 
 /**
  * 等待可异步的结果
@@ -38,10 +35,10 @@ export interface WaitAsyncableCallback<Result, Return> {
 export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result,Return> {
     if (asyncable instanceof Promise) {
         return asyncable.then((syncRes) => {
-            return callback(syncRes, false);
-        }, (reason) => {
-            return callback(undefined, true,reason);
+            return callback(syncRes, false,undefined);
+        }, (error) => {
+            return callback(undefined, true,error);
         }) as WaitAsyncableReturn<Result,Return>;
     }
-    return callback(asyncable as ResolveData<Result>, false) as WaitAsyncableReturn<Result,Return>;
+    return callback(asyncable, false,undefined) as WaitAsyncableReturn<Result,Return>;
 }
