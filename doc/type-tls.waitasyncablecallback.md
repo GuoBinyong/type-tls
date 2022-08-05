@@ -2,12 +2,12 @@
 
 [Home](./index.md) &gt; [type-tls](./type-tls.md) &gt; [WaitAsyncableCallback](./type-tls.waitasyncablecallback.md)
 
-## WaitAsyncableCallback interface
+## WaitAsyncableCallback type
 
 waitAsyncable 的回调函数的类型
 
 <b>Signature:</b>
 
 ```typescript
-export interface WaitAsyncableCallback<Result, Return> 
+export declare type WaitAsyncableCallback<Result, Return> = (result: Result | undefined, rejected: boolean, error: any) => Return;
 ```

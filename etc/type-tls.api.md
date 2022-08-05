@@ -165,12 +165,7 @@ export type TypeOfReturnType = "string" | "number" | "bigint" | "boolean" | "sym
 export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result, Return>;
 
 // @public
-export interface WaitAsyncableCallback<Result, Return> {
-    // (undocumented)
-    (result: ResolveData<Result>, rejected: false): Return;
-    // (undocumented)
-    (result: undefined, rejected: true, reason: any): Return;
-}
+export type WaitAsyncableCallback<Result, Return> = (result: Result | undefined, rejected: boolean, error: any) => Return;
 
 // @public
 export type WaitAsyncableReturn<Result, Return> = Return extends Promise<any> ? Return : (Result extends Promise<any> ? Promise<Return> : Return);
