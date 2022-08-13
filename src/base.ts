@@ -298,7 +298,10 @@ export type Optional<T> = T | null | undefined;
  */
 export type OptionalBoolean = Optional<boolean>;
 
-
+/**
+ * 获取值类型为指定类型的所有 key
+ */
+export type KeyOfValueType<Target,ValueType> = {[K in keyof Target]:Target[K] extends ValueType ? K : never}[keyof Target];
 
 
 
