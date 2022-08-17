@@ -53,6 +53,7 @@
 |  [AnyFunction](./type-tls.anyfunction.md) | 表示任意的函数类型 |
 |  [ExactType](./type-tls.exacttype.md) | 精确类型 |
 |  [ExactTypeName](./type-tls.exacttypename.md) | 精确类型的字符串表示 |
+|  [KeyOfValue](./type-tls.keyofvalue.md) | 获取值类型为指定类型的所有 key |
 |  [LooseType](./type-tls.loosetype.md) | 宽松的类型 |
 |  [LooseTypeName](./type-tls.loosetypename.md) | 宽松类型的字符串表示 |
 |  [MethodParams](./type-tls.methodparams.md) | 获取对象的方法的某个参数的类型 |

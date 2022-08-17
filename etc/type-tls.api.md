@@ -95,6 +95,11 @@ export function isIterator(target: any): boolean;
 export function isObject(target: any): boolean;
 
 // @public
+export type KeyOfValue<Target, Value> = {
+    [K in keyof Target]: Target[K] extends Value ? K : never;
+}[keyof Target];
+
+// @public
 export type LooseType = undefined | null | Function | "object";
 
 // @public
