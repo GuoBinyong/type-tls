@@ -1,4 +1,5 @@
-[API接口文档]: ./doc/index.md
+[教程]: ./doc/教程.md
+[API接口文档]: ./doc/api/index.md
 
 [GitHub仓库]: https://github.com/GuoBinyong/type-tls
 [发行地址]: https://github.com/GuoBinyong/type-tls/releases
@@ -14,7 +15,8 @@
 - [2. 安装方式](#2-安装方式)
   - [2.1. 方式1：通过 npm 安装](#21-方式1通过-npm-安装)
   - [2.2. 方式3：通过`<script>`标签引入](#22-方式3通过script标签引入)
-- [3. API接口文档](#3-api接口文档)
+- [3. 教程](#3-教程)
+- [4. API接口文档](#4-api接口文档)
 
 
 
@@ -46,6 +48,7 @@
 
 
 ## 2.1. 方式1：通过 npm 安装
+通过 npm （或 yarn、pnpm 等包管理器）安装
 ```
 npm install type-tls
 ```
@@ -69,7 +72,10 @@ npm install type-tls
    </script>
    ```
 
-# 3. API接口文档
+# 3. 教程
+详情跳转至[教程][]
+
+# 4. API接口文档
 详情跳转至[API接口文档][]
 
 

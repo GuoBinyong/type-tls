@@ -10,6 +10,6 @@
 
 ```typescript
 export declare type KeyOfValue<Target, Value> = {
-    [K in keyof Target]: Target[K] extends Value ? K : never;
+	[K in keyof Target]: Target[K] extends Value ? K : never;
 }[keyof Target];
 ```

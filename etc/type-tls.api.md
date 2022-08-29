@@ -9,7 +9,7 @@ export type AnyFunction = (...args: any) => any;
 
 // @public
 export interface ClassType<Arg extends any[] = any[], Instance = any> {
-    // (undocumented)
+    	// (undocumented)
     new (...args: Arg): Instance;
 }
 
@@ -96,7 +96,7 @@ export function isObject(target: any): boolean;
 
 // @public
 export type KeyOfValue<Target, Value> = {
-    [K in keyof Target]: Target[K] extends Value ? K : never;
+    	[K in keyof Target]: Target[K] extends Value ? K : never;
 }[keyof Target];
 
 // @public
@@ -139,7 +139,7 @@ export type OptionalBoolean = Optional<boolean>;
 
 // @public
 export interface PrivateMemberOfExtend<TargetType extends new (...args: any) => any> {
-    _constructor?: (...args: (TargetType extends new (...args: infer A) => any ? A : never)) => void;
+    	_constructor?: (...args: (TargetType extends new (...args: infer A) => any ? A : never)) => void;
 }
 
 // @public
@@ -170,11 +170,9 @@ export type TypeOfReturnType = "string" | "number" | "bigint" | "boolean" | "sym
 export function waitAsyncable<Result, Return>(asyncable: Result, callback: WaitAsyncableCallback<Result, Return>): WaitAsyncableReturn<Result, Return>;
 
 // @public
-export type WaitAsyncableCallback<Result, Return> = (result: Result | undefined, rejected: boolean, error: any) => Return;
+export type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result> | undefined, rejected: boolean, error: any) => Return;
 
 // @public
 export type WaitAsyncableReturn<Result, Return> = Return extends Promise<any> ? Return : (Result extends Promise<any> ? Promise<Return> : Return);
-
-// (No @packageDocumentation comment for this package)
 
 ```

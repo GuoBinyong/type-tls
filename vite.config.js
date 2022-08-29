@@ -12,7 +12,7 @@ const entry = 'src/index.ts';   // 输入（入口）文件
 //所需构建的模块格式
 const formats_ExcludeDep = ['es', 'umd'];  //要排除依赖包的模块格式
 const formats_IncludeDep = ['iife'];  //要包含依赖包的模块格式
-const singleDts = false;   // 是否要将声明汇总成一个单独的文件
+const singleDts = true;   // 是否要将声明汇总成一个单独的文件
 /**
  * 将声明汇总成一个文件的选项
  * @type {import("build-tls").DtsBundle|boolean}
@@ -73,6 +73,13 @@ const config = {
         outDir:outDir,
         rollupOptions:{
             external:excludedDep_Exclude,
+            /**
+             * String 使用什么导出模式。默认为auto，它根据entry模块导出的内容猜测你的意图：
+             * default – 如果你使用 export default ... 仅仅导出一个东西，那适合用这个
+             * named – 如果你导出多个东西，适合用这个
+             * none – 如果你不导出任何内容 (例如，你正在构建应用程序，而不是库)，则适合用这个
+             */
+            // exports:"auto", 
         }
     }
 };

@@ -9,5 +9,7 @@ waitAsyncable 的回调函数的类型
 <b>Signature:</b>
 
 ```typescript
-export declare type WaitAsyncableCallback<Result, Return> = (result: Result | undefined, rejected: boolean, error: any) => Return;
+export declare type WaitAsyncableCallback<Result, Return> = (result: ResolveData<Result> | undefined, rejected: boolean, error: any) => Return;
 ```
+<b>References:</b> [ResolveData](./type-tls.resolvedata.md)
+

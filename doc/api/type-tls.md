@@ -4,6 +4,12 @@
 
 ## type-tls package
 
+处理类型相关的工具
+
+## Remarks
+
+type-tls 封装了与类型相关的工具，比如获取数据的类型 或 类型名字、判断数据的类型 等
+
 ## Functions
 
 |  Function | Description |
