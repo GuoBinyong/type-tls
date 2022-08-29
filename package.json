@@ -1,6 +1,6 @@
 {
   "name": "type-tls",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "description": "type-tls 封装了与类型相关的工具，比如:获取数据的类型 或 类型名字、判断数据的类型 等",
   "main": "dist/type-tls.umd.js",
   "module": "dist/type-tls.mjs",
