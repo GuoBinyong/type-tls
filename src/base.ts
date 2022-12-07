@@ -300,9 +300,36 @@ export type OptionalBoolean = Optional<boolean>;
 
 /**
  * 获取值类型为指定类型的所有 key
+ * 
+ * @typeParam Target - 目标对象
+ * @typeParam Value - 要获取的key的对应值的类型
  */
 export type KeyOfValue<Target,Value> = {[K in keyof Target]:Target[K] extends Value ? K : never}[keyof Target];
 
+/**
+ * 获取值类型不是指定类型的所有 key
+ * 
+ * @typeParam Target - 目标对象
+ * @typeParam Value - 被排除的值的类型
+ */
+export type KeyOfNonValue<Target,Value> = {[K in keyof Target]:Target[K] extends Value ? never : K }[keyof Target];
+
+
+/**
+ * 获取值类型包含指定类型的所有 key
+ * 
+ * @typeParam Target - 目标对象
+ * @typeParam Value - 要获取的key的对应值应包含的类型
+ */
+export type KeyOfContainsValue<Target,Value> = {[K in keyof Target]:Value extends Target[K]  ? K : never}[keyof Target];
+
+/**
+ * 获取值类型不应包含指定类型的所有 key
+ * 
+ * @typeParam Target - 目标对象
+ * @typeParam Value - 不应包含的值的类型
+ */
+export type KeyOfNonContainsValue<Target,Value> = {[K in keyof Target]:Value extends Target[K]  ? never : K}[keyof Target];
 
 
 
